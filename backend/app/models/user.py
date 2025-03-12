@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, DateTime
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from app.db.session import Base
 
 
@@ -13,4 +14,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now()) 
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationship with transactions
+    transactions = relationship("Transaction", back_populates="user") 
